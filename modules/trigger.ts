@@ -2,6 +2,8 @@ import { ZuploContext, ZuploRequest, environment } from "@zuplo/runtime";
 import { Inngest } from "inngest";
 
 export default async function (request: ZuploRequest, context: ZuploContext) {
+  context.log.error("NODE_ENV", process.env.NODE_ENV)
+
   const inngest = new Inngest({
     name: "Inngest Triggers",
     eventKey: environment.INNGEST_EVENT_KEY,
@@ -9,10 +11,11 @@ export default async function (request: ZuploRequest, context: ZuploContext) {
   });
 
   await inngest.send({
-    name: "test/hello.world",
+    name: "demo/hello.world",
     data: {
       email: "testFromNext@example.com",
     },
-
   });
+
+  return "hi!";
 }

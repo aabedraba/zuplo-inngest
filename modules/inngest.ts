@@ -1,7 +1,7 @@
 import { ZuploContext, ZuploRequest, Logger, environment } from "@zuplo/runtime";
 import { Inngest } from "inngest";
 // @ts-ignore
-import { serve } from "inngest/cloudflare";
+import { serve } from "inngest/edge";
 
 export default async function (request: ZuploRequest, context: ZuploContext) {
   const inngest = new Inngest({
@@ -11,15 +11,7 @@ export default async function (request: ZuploRequest, context: ZuploContext) {
     env: environment.INNGEST_ENV
   });
 
-  const helloWorld = inngest.createFunction(
-    { name: "Hello World" },
-    { event: "test/hello.world" },
-    async ({ event, step }) => {
-      await step.sleep("1s");
-      return { event, body: "Hello, World!" };
-    }
-  );
-
+  const helloWorld = inngest.createFunction({ name: 'Hello World Newly Registered' }, { event: 'demo/hello.world' }, () => 'Hello, Inngest!');
 
   const handler = serve(inngest, [helloWorld], {
     logLevel: environment.ZUPLO_LOG_LEVEL,
