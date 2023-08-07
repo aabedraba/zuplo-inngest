@@ -2,7 +2,7 @@ import { ZuploContext, ZuploRequest, environment } from "@zuplo/runtime";
 import { Inngest } from "inngest";
 
 export default async function (request: ZuploRequest, context: ZuploContext) {
-  context.log.info("NODE_ENV", process.env.NODE_ENV)
+  context.log.error("NODE_ENV", process.env.NODE_ENV)
 
   const inngest = new Inngest({
     name: "Inngest Triggers",
